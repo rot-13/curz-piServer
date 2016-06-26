@@ -6,7 +6,6 @@ import pychromecast as pycc
 from websocket import create_connection
 
 stream_server_ip = 'cpc-curz.herokuapp.com'
-# stream_server_ip = '127.0.0.1'
 stream_server_port = 443
 
 CONTENT_TYPES = {
@@ -32,6 +31,7 @@ def run():
     ws = create_connection("wss://%s/connect" % (stream_server_ip))
     gevent.spawn(ping, ws)
     while ws.connected:
+        gevent.sleep(0.1)
         file_url = ws.recv()
         if file_url == 'ping':
             continue
@@ -43,4 +43,6 @@ def run():
     ws.close()
 
 if __name__ == '__main__':
-    run()
+    while True:
+        run()
+        gevent.sleep(1)
