@@ -11,6 +11,7 @@ from subprocess import call
 stream_server_ip = 'cpc-curz.herokuapp.com'
 stream_server_port = 443
 SOUND_FILES_PATH = '/home/pi/CPC/sounds/'
+HTTP_URL = 'http://192.168.2.40:8000/'
 
 CONTENT_TYPES = {
     'm4a': 'audio/m4a',
@@ -26,8 +27,9 @@ def guess_content_type(extension):
 
 
 def generate_mp3(text, lang="en"):
-    filename = os.path.join(SOUND_FILES_PATH, 'text_%s.mp3' % time.time())
-    call("espeak -v %s \"%s\" --stdout | avconv -i - -ar 44100 -ac 2 -ab 192k -f mp3 %s" % (lang, text, filename), shell=True)
+    filename = 'text_%s.mp3' % time.time()
+    filename_on_disk = os.path.join(SOUND_FILES_PATH, filename)
+    call("espeak -v %s \"%s\" --stdout | avconv -i - -ar 44100 -ac 2 -ab 192k -f mp3 %s > /dev/null 2>&1" % (lang, text, filename_on_disk), shell=True)
     return filename
 
 
@@ -46,7 +48,7 @@ def run():
         if recv_string == 'ping':
             continue
         elif recv_string.startswith('text:'):
-            file_url = generate_mp3(recv_string[5:])
+            file_url = HTTP_URL + generate_mp3(recv_string[5:])
         else:
             file_url = recv_string
         extension = file_url.split('.')[-1]
