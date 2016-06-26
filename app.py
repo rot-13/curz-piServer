@@ -9,6 +9,7 @@ from subprocess import call
 
 stream_server_ip = 'cpc-curz.herokuapp.com'
 stream_server_port = 443
+SOUND_FILES_PATH = '/home/pi/CPC/sounds/'
 
 CONTENT_TYPES = {
     'm4a': 'audio/m4a',
@@ -24,7 +25,7 @@ def guess_content_type(extension):
 
 
 def generate_mp3(text, lang="en"):
-    filename = 'text_%s.mp3' % time.time()
+    filename = os.path.join(SOUND_FILES_PATH, 'text_%s.mp3' % time.time())
     call("espeak -v %s \"%s\" --stdout | avconv -i - -ar 44100 -ac 2 -ab 192k -f mp3 %s" % (lang, text, filename), shell=True)
     return filename
 
