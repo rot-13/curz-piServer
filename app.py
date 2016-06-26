@@ -5,6 +5,7 @@ monkey.patch_all()
 import pychromecast as pycc
 from websocket import create_connection
 import time
+import os
 from subprocess import call
 
 stream_server_ip = 'cpc-curz.herokuapp.com'
