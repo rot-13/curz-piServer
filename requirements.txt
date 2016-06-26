@@ -1,0 +1,11 @@
+enum-compat==0.0.2
+enum34==1.1.6
+gevent==1.1.1
+greenlet==0.4.10
+netifaces==0.10.4
+protobuf==3.0.0b2
+PyChromecast==0.7.3
+requests==2.10.0
+six==1.10.0
+websocket-client==0.37.0
+zeroconf==0.17.5
