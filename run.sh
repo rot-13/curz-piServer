@@ -1,3 +1,3 @@
 #!/bin/bash
-source /home/pi/.virtualenv/officePA/bin/activate
+source /home/pi/.virtualenvs/officePA/bin/activate
 python /home/pi/CPC/curz-piServer/app.py
