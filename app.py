@@ -23,9 +23,9 @@ def guess_content_type(extension):
     return 'audio/mp4'
 
 
-def generate_mp3(text, lang="en"):
+def generate_mp3(text):
     filename = 'text_%s.mp3' % time.time()
-    call("espeak -v %s %s --stdout | avconv -i - -ar 44100 -ac 2 -ab 192k -f mp3 %s" % (lang, text, filename), shell=True)
+    call("espeak -v %s \"%s\" --stdout | avconv -i - -ar 44100 -ac 2 -ab 192k -f mp3 %s" % (lang, text, filename), shell=True)
     return filename
 
 
